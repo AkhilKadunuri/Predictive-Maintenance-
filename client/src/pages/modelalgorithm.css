@@ -1,0 +1,55 @@
+.model-container {
+  min-height: 100vh;
+  padding: 30px;
+  background: linear-gradient(120deg, #fdfbfb, #ebedee);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Title styling */
+.model-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Chart grid layout */
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 30px;
+}
+
+/* Glassmorphism chart card */
+.chart-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(200, 200, 200, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover effect */
+.chart-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Chart title */
+.chart-title {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #0072ff;
+  font-weight: 600;
+}
+
+/* Chart wrapper */
+.chart-wrapper {
+  height: 300px;
+}

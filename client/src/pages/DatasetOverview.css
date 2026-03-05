@@ -1,0 +1,108 @@
+/* Full-screen layout with a gradient background */
+.dataset-overview-container {
+  min-height: 100vh;
+  padding: 50px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298, #0f2027);
+  background-size: 400% 400%;
+  animation: bgGradient 15s ease infinite;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Animate gradient background */
+@keyframes bgGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Header styling */
+.dataset-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.dataset-header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.dataset-header p {
+  font-size: 1.2rem;
+  color: #d3d3d3;
+  max-width: 800px;
+  margin: 10px auto;
+}
+
+/* Grid styling */
+.dataset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Card styling with glass effect */
+.dataset-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover effect: pop & glow */
+.dataset-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(0, 255, 255, 0.5);
+}
+
+/* Image styling with hover zoom */
+.dataset-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  transition: transform 0.4s ease;
+}
+
+.dataset-card:hover img {
+  transform: scale(1.1);
+}
+
+/* Text styling */
+.dataset-card h3 {
+  font-size: 1.4rem;
+  margin: 10px 0;
+  color: #fff;
+}
+
+.dataset-card p {
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+/* Glow border animation */
+.dataset-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, rgba(0,255,255,0.3), transparent 70%);
+  animation: rotateBorder 8s linear infinite;
+  z-index: -1;
+}
+
+@keyframes rotateBorder {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

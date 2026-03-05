@@ -1,0 +1,118 @@
+/* Full screen background with animation */
+.predict-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center; /* vertical center */
+  justify-content: center; /* horizontal center */
+  background: linear-gradient(-45deg, #ff6b6b, #f06595, #845ef7, #339af0);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  padding: 20px;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Card styling */
+.predict-box {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Title & subtitle */
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+/* Form styling */
+.input-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 200px 1fr; /* fixed label column */
+  align-items: center;
+  gap: 10px;
+}
+
+.input-row label {
+  text-align: right;
+  font-size: 1rem;
+  color: white;
+  padding-right: 10px;
+}
+
+.input-row input,
+.input-row select {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* Button styling */
+.predict-btn {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: linear-gradient(45deg, #ffd43b, #ff922b);
+  color: black;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.predict-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 221, 87, 0.8);
+}
+
+/* Result display */
+.result {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.result.safe {
+  background: rgba(0, 255, 0, 0.2);
+}
+
+.result.failure {
+  background: rgba(255, 0, 0, 0.2);
+}
+
+.result.error {
+  background: rgba(255, 255, 255, 0.2);
+}
