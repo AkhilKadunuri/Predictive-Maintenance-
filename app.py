@@ -6,6 +6,10 @@ app = Flask(__name__)
 
 model = joblib.load("model.pkl")
 
+@app.route("/")
+def home():
+    return "Predictive Maintenance API is running!"
+
 @app.route("/api/predict", methods=["POST"])
 def predict():
 
