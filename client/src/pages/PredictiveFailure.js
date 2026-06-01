@@ -22,7 +22,9 @@ const PredictFailure = () => {
     setLoading(true);
     setResult(null);
     try {
-      const res = await fetch("http://localhost:5000/api/predict", {
+      fetch(
+  "https://predictive-maintenance-api.onrender.com/api/predict"
+){
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(inputData),
