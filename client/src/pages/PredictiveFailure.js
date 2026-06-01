@@ -23,7 +23,7 @@ const PredictFailure = () => {
     setResult(null);
     try {
       fetch(
-  "https://predictive-maintenance-api.onrender.com/api/predict"
+  "https://predictive-maintenance-fep0.onrender.com/api/predict"
 ){
         method: "POST",
         headers: { "Content-Type": "application/json" },
