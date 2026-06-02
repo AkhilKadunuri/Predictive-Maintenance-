@@ -1,38 +1,50 @@
-// PredictFailure.js (React)
+// PredictiveFailure.js
 import React, { useState } from "react";
 import "./PredictiveFailure.css";
 
 const PredictFailure = () => {
   const [inputData, setInputData] = useState({
-    type: "", // no default, user must choose
+    type: "",
     airTemp: "",
     processTemp: "",
     rpm: "",
     torque: "",
     toolWear: "",
   });
+
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setInputData({ ...inputData, [e.target.name]: e.target.value });
+    setInputData({
+      ...inputData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handlePredict = async () => {
     setLoading(true);
     setResult(null);
+
     try {
-      fetch(
-  "https://predictive-maintenance-fep0.onrender.com/api/predict"
-){
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(inputData),
-      });
+      const res = await fetch(
+        "https://predictive-maintenance-fep0.onrender.com/api/predict",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(inputData),
+        }
+      );
+
       const data = await res.json();
       setResult(data);
     } catch (err) {
-      setResult({ error: "Prediction request failed" });
+      console.error(err);
+      setResult({
+        error: "Prediction request failed",
+      });
     } finally {
       setLoading(false);
     }
@@ -42,12 +54,20 @@ const PredictFailure = () => {
     <div className="predict-container">
       <div className="predict-box">
         <h1>🔮 Predict Machine Failure</h1>
-        <p className="subtitle">Enter telemetry values and check failure risk.</p>
 
-        {/* Product Type Dropdown */}
+        <p className="subtitle">
+          Enter telemetry values and check failure risk.
+        </p>
+
+        {/* Product Type */}
         <div className="input-row">
           <label>Product Type:</label>
-          <select name="type" value={inputData.type} onChange={handleChange}>
+
+          <select
+            name="type"
+            value={inputData.type}
+            onChange={handleChange}
+          >
             <option value="">Enter your choice</option>
             <option value="L">L</option>
             <option value="M">M</option>
@@ -58,6 +78,7 @@ const PredictFailure = () => {
         <div className="input-grid">
           <div className="input-row">
             <label>Air Temperature (K):</label>
+
             <input
               type="number"
               name="airTemp"
@@ -69,6 +90,7 @@ const PredictFailure = () => {
 
           <div className="input-row">
             <label>Process Temperature (K):</label>
+
             <input
               type="number"
               name="processTemp"
@@ -80,6 +102,7 @@ const PredictFailure = () => {
 
           <div className="input-row">
             <label>Rotational Speed (rpm):</label>
+
             <input
               type="number"
               name="rpm"
@@ -91,6 +114,7 @@ const PredictFailure = () => {
 
           <div className="input-row">
             <label>Torque (Nm):</label>
+
             <input
               type="number"
               name="torque"
@@ -102,6 +126,7 @@ const PredictFailure = () => {
 
           <div className="input-row">
             <label>Tool Wear (min):</label>
+
             <input
               type="number"
               name="toolWear"
@@ -112,16 +137,34 @@ const PredictFailure = () => {
           </div>
         </div>
 
-        <button className="predict-btn" onClick={handlePredict} disabled={loading}>
+        <button
+          className="predict-btn"
+          onClick={handlePredict}
+          disabled={loading}
+        >
           {loading ? "Predicting..." : "Predict Now"}
         </button>
 
-        {result && result.error && <div className="result error">{result.error}</div>}
+        {result && result.error && (
+          <div className="result error">
+            {result.error}
+          </div>
+        )}
 
         {result && !result.error && (
-          <div className={`result ${result.prediction === "Failure" ? "failure" : "safe"}`}>
+          <div
+            className={`result ${
+              result.prediction === "Failure"
+                ? "failure"
+                : "safe"
+            }`}
+          >
             <h3>{result.prediction}</h3>
-            <p>Probability of failure: {(result.probability * 100).toFixed(1)}%</p>
+
+            <p>
+              Probability of failure:{" "}
+              {(result.probability * 100).toFixed(1)}%
+            </p>
           </div>
         )}
       </div>
