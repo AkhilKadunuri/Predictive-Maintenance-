@@ -1,34 +1,27 @@
-from flask import Flask, request, jsonify
+import streamlit as st
 import numpy as np
 import joblib
 
-app = Flask(__name__)
-
+# Load model
 model = joblib.load("model.pkl")
 
-@app.route("/")
-def home():
-    return "Predictive Maintenance API is running!"
+st.title("Predictive Maintenance System")
 
-@app.route("/api/predict", methods=["POST"])
-def predict():
+st.write("Enter machine details:")
 
-    data = request.json
+# Inputs (same order as training)
+air_temp = st.number_input("Air Temperature (K)")
+process_temp = st.number_input("Process Temperature (K)")
+rpm = st.number_input("Rotational Speed (RPM)")
+torque = st.number_input("Torque (Nm)")
+tool_wear = st.number_input("Tool Wear (min)")
 
-    features = np.array([[
-        float(data["airTemp"]),
-        float(data["processTemp"]),
-        float(data["rpm"]),
-        float(data["torque"]),
-        float(data["toolWear"])
-    ]])
+# Predict
+if st.button("Predict"):
+    data = np.array([[air_temp, process_temp, rpm, torque, tool_wear]])
+    prediction = model.predict(data)
 
-    prediction = model.predict(features)[0]
-
-    return jsonify({
-        "prediction": "Failure" if prediction == 1 else "Normal",
-        "probability": 0.95
-    })
-
-if __name__ == "__main__":
-    app.run()
+    if prediction[0] == 1:
+        st.error("⚠️ Machine Failure Likely")
+    else:
+        st.success("✅ Machine is Normal")
